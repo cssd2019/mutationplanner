@@ -1,5 +1,11 @@
 from Bio import SeqIO, Seq
 
+"""
+makes a dictionary (seq_dict) with the ids as keys and 
+
+"""
+
+
 #seq_dict = SeqIO.to_dict(SeqIO.parse("test.fasta", "fasta"))
 #print(seq_dict)
 #print("######################")
@@ -20,4 +26,5 @@ def fasta_to_dic(filename):
 	return seq_dict
 
 a = fasta_to_dic("test.fasta")
+
 print(a)
