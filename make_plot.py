@@ -1,44 +1,37 @@
+import make_main_trace_data as mmtd
 import create_pi_dict as cpd
 import matplotlib.pyplot as plt
+import numpy as np
 
-def make_plot(pi_dict):
+def onpick(event):
+    txt = event.artist
+    print('clicked')
 
-    # Read fasta file
-    fasta_seq = "ttagGATAGAAGATATTGAACATTTTTGTATTTGGTGGGGAGAGAGCTCAGAGGGAGGAAGAAATAGAAGATGCAGAAGAGGATGGACTAATTGATGGAGCAGAGTCTTTGAGgttaa"
-    fasta_seq = fasta_seq.lower()
 
-    # make main trace data
-    kmer_length = 8
-    fasta_length = len(fasta_seq)
-    y_data = [0, 0, 0, 0]
-    x_data = [x for x in range(fasta_length)]
-    for idx, nt in enumerate(fasta_seq):
-        if idx > (fasta_length - kmer_length):
-            break
-        start_idx = idx
-        end_idx = start_idx + kmer_length
-        current_octamer = fasta_seq[start_idx:end_idx]
-        octamer_data = sum(pi_dict[current_octamer])
-        y_data.append(octamer_data)
-        print(idx, current_octamer, octamer_data)
-    y_data.append(0)
-    y_data.append(0)
-    y_data.append(0)
-    #
-    # print(x_data)
-    # print(y_data)
-    #
-    #
-    # print(len(x_data), len(y_data))
-    # print(dict(zip(x_data, y_data)))
-
+def make_plot(x_data, y_data):
+    fig = plt.figure(figsize=[12, 5])
     plt.plot(x_data, y_data, '-', linewidth=2, markersize=12)
+    
+    # for figure adjustment
+    y_data_min = np.nanmin(y_data)
+    y_data_max = np.nanmax(y_data)
+
+    # plot the sequence one base at a time
+    for idx, base in enumerate(fasta_seq):
+        x = x_data[idx]
+        th = plt.text(x, y_data_min-4, base.upper(), fontsize=12, picker=5)
+
+    # set proper limits so that the sequence is always visible below the trace
+    #plt.xlim(left=-1, right=10)
+    plt.ylim(bottom=y_data_min-8, top=y_data_max+4)
+    print(y_data_min, y_data_max )
+    fig.canvas.mpl_connect('pick_event', onpick)
     plt.show()
-    # Compute combined PI score
+
 
 if __name__ == "__main__":
     octamers_file_path = "./data/octamers.txt"
-    # Read the PI dictionary
+    fasta_seq = "ttagGATAGAAGATATTGAACATTTTTGTATTTGGTGGGGAGAGAGCTCAGAGGGAGGAAGAAATAGAAGATGCAGAAGAGGATGGACTAATTGATGGAGCAGAGTCTTTGAGgttaa"
     pi_dict = cpd.create_pi_dict(octamers_file_path)
-
-    make_plot(pi_dict)
+    x_data, y_data = mmtd.make_main_trace_data(fasta_seq, pi_dict)
+    make_plot(x_data, y_data)
