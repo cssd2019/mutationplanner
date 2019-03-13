@@ -1,3 +1,14 @@
+"""
+calls other scripts from mutationplanner project
+inputs a FASTA-file, and a list of octamers,
+outputs a plot showing silencer & enhancer probability
+written for NorBis course march 2019
+
+by Illimar Rekand, Maria Andersen, Ferenc Tibor Kagan and Adnan Niazi
+
+
+"""
+
 import make_main_trace_data as mmtd
 import create_pi_dict as cpd
 import matplotlib.pyplot as plt
@@ -17,12 +28,7 @@ pi_dict = cpd.create_pi_dict(octamers_file_path)
 fastadic = fasta_to_dic( "test.fasta" )
 fastadic_lower = fastadic_lower(fastadic)
 fasta_seq =  fastadic_lower["wt"]
-#for k, v in fastadic_lower.items():
-#    print(k,v)
- #   if k == "wt":
- #       fasta_seq = v
 
-#        break
 
 print("#####", fasta_seq)
 #fasta_seq is need by make_plot
