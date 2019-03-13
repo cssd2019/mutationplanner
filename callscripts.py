@@ -9,15 +9,15 @@ by Illimar Rekand, Maria Andersen, Ferenc Tibor Kagan and Adnan Niazi
 
 """
 
-import make_main_trace_data as mmtd
+import make_trace_data as mmtd
 import create_pi_dict as cpd
 import matplotlib.pyplot as plt
 import numpy as np
 from make_plot import make_plot 
 import string
 from Bio import SeqIO, Seq
-from fastareader import fasta_to_dic
-from reader_converter import fastadic_lower
+from read_fasta import fasta_to_dic
+from convert_fasta_case import fastadic_lower
 
 
 octamers_file_path = "./data/octamers.txt"
@@ -25,7 +25,7 @@ octamers_file_path = "./data/octamers.txt"
 pi_dict = cpd.create_pi_dict(octamers_file_path)
 
 
-fastadic = fasta_to_dic( "test.fasta" )
+fastadic = fasta_to_dic( "./data/test.fasta" )
 fastadic_lower = fastadic_lower(fastadic)
 fasta_seq =  fastadic_lower["wt"]
 

@@ -1,32 +1,49 @@
-import make_main_trace_data as mmtd
-import create_pi_dict as cpd
 import matplotlib.pyplot as plt
 import numpy as np
+import make_trace_data as mtd
 
-## GLOBAL ###
-octamers_file_path = "./data/octamers.txt"
-fasta_seq = "ttagGATAGAAGATATTGAACATTTTTGTATTTGGTGGGGAGAGAGCTCAGAGGGAGGAAGAAATAGAAGATGCAGAAGAGGATGGACTAATTGATGGAGCAGAGTCTTTGAGgttaa"
-pi_dict = cpd.create_pi_dict(octamers_file_path)
-#############
 
-def make_mutation_data(mutation_base_index, new_base):
+def _make_mutated_data(mutation_base_index, new_base, fasta_seq, pi_dict):
+    """Internal helper function to make mutated trace data
+
+    :param mutation_base_index (int): the index of the base that is mutated
+    :param new_base (string): the base (A, T, C, or G) itself that is mutated
+    :param fasta_seq (string): the fasta sequence
+    :param pi_dict (dict): dictionary of combined P and I values for all octamers
+    :return: two numpy arrays (the first array contains x_axis data, and the second contains y_axis data)
+    """
     new_base = new_base.lower()
     new_fasta_seq = fasta_seq[0:mutation_base_index] + new_base +  fasta_seq[mutation_base_index+1: ]
     new_fasta_seq = new_fasta_seq.lower()
-    x_data, y_data = mmtd.make_main_trace_data(new_fasta_seq, pi_dict)
-    print(fasta_seq)    
-    print(new_fasta_seq)  
+    x_data, y_data = mtd.make_trace_data(new_fasta_seq, pi_dict)
+    print(fasta_seq)
+    print(new_fasta_seq)
     return x_data, y_data
 
-def print_object_methods(object):
+def _print_object_methods(object):
+    """Internal helper function to return methods of an object
+
+    :param object: object whose methods should be printed
+    :return: None
+    """
     object_methods = [method_name for method_name in dir(object)
                       if callable(getattr(object, method_name))]
     print(object_methods)
 
-def onpick(event):
+
+def _onclick(event, fasta_seq, pi_dict):
+    """Internal helper function that handles the clicks on the nucleotides,
+    mutates the nucleotide, and also adds a trace on the plot to show the effect of
+    the mutation.
+
+    :param event (object): event data passed by the picker
+    :param fasta_seq (string): the fasta sequence
+    :param pi_dict (dict): dictionary of combined P and I values for all octamers
+    :return: None
+    """
     txt = event.artist
-    print_object_methods(txt)
-    #print_object_methods(event)
+    #_print_object_methods(txt)
+    #_print_object_methods(event)
     #print(vars(event))
     current_text = txt.get_text()
 
@@ -44,20 +61,29 @@ def onpick(event):
     elif current_text == 'G':
         new_txt = 'A'
         new_color = 'r'
-
     txt.set_text(new_txt)
     txt.set_color(new_color)
-    
+
     # get the index of the mutated base and recompute the graph data
-    mutation_base_index, _= txt.get_position()
-    new_x_data, new_y_data = make_mutation_data(mutation_base_index, new_txt)
+    mutation_base_index, _ = txt.get_position()
+    new_x_data, new_y_data = _make_mutated_data(mutation_base_index, new_txt, fasta_seq, pi_dict)
+
+    # plot mutated trace
     plt.plot(new_x_data, new_y_data, '-', linewidth=2, markersize=12, color=new_color)
 
     # refresh the figure
     event.canvas.draw_idle()
-    
 
-def make_plot(x_data, y_data, fasta_seq):
+
+def make_plot(x_data, y_data, fasta_seq, pi_dict):
+    """This function makes the main plot
+
+    :param x_data (numpy array): contains data to plot on the x-axis
+    :param y_data: (numpy array): contains data to plot on the y-axis
+    :param fasta_seq: (string): fasta sequence for annotation the line plot
+    :param pi_dict (dict): dictionary of combined P and I values for all octamers
+    :return: None
+    """
     fig = plt.figure(figsize=[12, 5])
     plt.plot(x_data, y_data, '-', linewidth=2, markersize=12)
 
@@ -71,17 +97,14 @@ def make_plot(x_data, y_data, fasta_seq):
 
     #plt.xlim(left=-1, right=10)
     plt.ylim(bottom=y_data_min-8, top=y_data_max+4)
-    fig.canvas.mpl_connect('pick_event', onpick)
+    fig.canvas.mpl_connect('pick_event', lambda event: _onclick(event, fasta_seq, pi_dict))
     plt.show()
 
 
-
-
-
 if __name__ == "__main__":
+    import create_pi_dict as cpd
     octamers_file_path = "./data/octamers.txt"
     fasta_seq = "ttagGATAGAAGATATTGAACATTTTTGTATTTGGTGGGGAGAGAGCTCAGAGGGAGGAAGAAATAGAAGATGCAGAAGAGGATGGACTAATTGATGGAGCAGAGTCTTTGAGgttaa"
-
     pi_dict = cpd.create_pi_dict(octamers_file_path)
-    x_data, y_data = mmtd.make_main_trace_data(fasta_seq, pi_dict)
-    make_plot(x_data, y_data, fasta_seq)
+    x_data, y_data = mtd.make_trace_data(fasta_seq, pi_dict)
+    make_plot(x_data, y_data, fasta_seq, pi_dict)

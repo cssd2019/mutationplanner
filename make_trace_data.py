@@ -1,6 +1,6 @@
 import numpy as np
 
-def make_main_trace_data(fasta_seq, pi_dict):
+def make_trace_data(fasta_seq, pi_dict):
     fasta_seq = fasta_seq.lower()
     # make main trace data
     kmer_length = 8
@@ -16,10 +16,7 @@ def make_main_trace_data(fasta_seq, pi_dict):
         start_idx = idx
         end_idx = start_idx + kmer_length
         current_octamer = fasta_seq[start_idx:end_idx]
-
-        # call maria's function here
-        octamer_data = sum(pi_dict[current_octamer])
-        ####
+        octamer_data = pi_dict[current_octamer]
 
         y_idx = int(idx + (kmer_length / 2))
         y_data[y_idx] = octamer_data
@@ -33,6 +30,6 @@ if __name__ == "__main__":
     octamers_file_path = "./data/octamers.txt"
     fasta_seq = "ttagGATAGAAGATATTGAACATTTTTGTATTTGGTGGGGAGAGAGCTCAGAGGGAGGAAGAAATAGAAGATGCAGAAGAGGATGGACTAATTGATGGAGCAGAGTCTTTGAGgttaa"
     pi_dict = cpd.create_pi_dict(octamers_file_path)
-    x_data, y_data = make_main_trace_data(fasta_seq, pi_dict)
+    x_data, y_data = make_trace_data(fasta_seq, pi_dict)
     print([[x_data], [y_data]])
 
