@@ -1,0 +1,13 @@
+PESX: All 65536 octamer scores
+
+Reference cited should be: Zhang and Chasin, Genes and Development, 18: 1241-1250, 2004,
+Computational Definition of Sequence Motifs Governing Constitutive Exon Splicing
+
+Col 1 = Sequence
+z-scores:
+Col 2 = EP o
+
+Octamer 	P-index  I-index
+aaaaaaaa	-4.3231	-5.252
+
+aaaaaaca	-3.1298	-3.5631
