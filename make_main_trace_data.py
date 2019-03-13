@@ -1,10 +1,7 @@
 import numpy as np
 
 def make_main_trace_data(fasta_seq, pi_dict):
-    # Read fasta file
-    fasta_seq = "ttagGATAGAAGATATTGAACATTTTTGTATTTGGTGGGGAGAGAGCTCAGAGGGAGGAAGAAATAGAAGATGCAGAAGAGGATGGACTAATTGATGGAGCAGAGTCTTTGAGgttaa"
     fasta_seq = fasta_seq.lower()
-
     # make main trace data
     kmer_length = 8
     fasta_length = len(fasta_seq)
