@@ -9,12 +9,12 @@ pip install git+https://github.com/cssd2019/mutationplanner.git
 ## Using mutation planner
 ``` python
 import mutationplanner as mp
-octamers_file_path = "/Users/adnaniazi/Desktop/collab_workshop/mutationplanner-package/mutationplanner/data/octamers.txt"
-fasta_file_path = "/Users/adnaniazi/Desktop/collab_workshop/mutationplanner-package/mutationplanner/data/test.fasta"
+octamers_file_path = "./data/octamers.txt"
+fasta_file_path = "./data/test.fasta"
 fasta_record_id = 'wt'
-
+strategy = 2
 # call to the main function of mutationplanner
-mp.mutation_analyser(octamers_file_path, fasta_file_path, fasta_record_id, 2)
+mp.mutation_analyser(octamers_file_path, fasta_file_path, fasta_record_id, strategy)
 ```
 
 <p align="center">
