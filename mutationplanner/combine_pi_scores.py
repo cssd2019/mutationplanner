@@ -1,4 +1,3 @@
-import pytest
 import numpy
 
 def combine_pi_score(oct_dict, strategy):
