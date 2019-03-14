@@ -16,10 +16,9 @@ fasta_record_id = 'wt'
 # call to the main function of mutationplanner
 mp.mutation_analyser(octamers_file_path, fasta_file_path, fasta_record_id, 2)
 ```
-![how-it-works](https://media.giphy.com/media/1BcR6eTXaXVN6nQ0lJ/giphy.gif | width=800)
 
 <p align="center">
-  <img src="https://media.giphy.com/media/1BcR6eTXaXVN6nQ0lJ/giphy.gif" width="1000" title="how-it-works">
+  <img src="https://media.giphy.com/media/1BcR6eTXaXVN6nQ0lJ/source.gif" title="how-it-works">
 </p>
 
 Getting help
