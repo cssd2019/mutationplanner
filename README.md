@@ -16,6 +16,7 @@ fasta_record_id = 'wt'
 # call to the main function of mutationplanner
 mp.mutation_analyser(octamers_file_path, fasta_file_path, fasta_record_id, 2)
 ```
+(how-it-works)[https://media.giphy.com/media/1BcR6eTXaXVN6nQ0lJ/giphy.gif]
 
 Getting help
 ------------
