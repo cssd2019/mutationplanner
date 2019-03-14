@@ -60,20 +60,20 @@ def combinePI_2(iindex, pindex):
             negative number (under -2.62) --> Splicing inhibitor
 
             999 --> Function did not do what it is supposed to, check code'''
-
-    output_value = 999
-    if iindex > 2.62 and pindex > 2.62:
-        output_value = numpy.mean([iindex, pindex])
-
-    elif iindex < -2.62 and pindex < -2.62:
-        output_value = numpy.mean([iindex, pindex])
-
-    else:
-        output_value = 0
-
-    if output_value == 999:
-        print("Something is wrong, nothing happened")
-        output_value = "Something is wrong, nothing happened"
+    output_value = numpy.mean([iindex, pindex])
+    # output_value = 999
+    # if iindex > 2.62 and pindex > 2.62:
+    #     output_value = numpy.mean([iindex, pindex])
+    #
+    # elif iindex < -2.62 and pindex < -2.62:
+    #     output_value = numpy.mean([iindex, pindex])
+    #
+    # else:
+    #     output_value = 0
+    #
+    # if output_value == 999:
+    #     print("Something is wrong, nothing happened")
+    #     output_value = "Something is wrong, nothing happened"
 
     return output_value
 

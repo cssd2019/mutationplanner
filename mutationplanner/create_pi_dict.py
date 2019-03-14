@@ -31,13 +31,6 @@ def create_pi_dict(file_path):
                     print('Warning: Encountered an empty line in the data.')
     return pi_dict
 
-#
-# def test_create_pi_dict():
-#     expected = {'aaaaaaaa': [- 4.3231, - 5.252],
-#                 'aaaaaaca': [- 3.1298, - 3.5631]
-#                 }
-#     assert create_pi_dict("./data/test_octamers.txt") == expected
-#
 
 if __name__ == "__main__":
     file_path = "./data/octamers.txt"

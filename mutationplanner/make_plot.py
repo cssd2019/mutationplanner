@@ -1,6 +1,8 @@
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
-import make_trace_data as mtd
+import mutationplanner.make_trace_data as mtd
 
 
 def _make_mutated_data(mutation_base_index, new_base, fasta_seq, pi_dict):
