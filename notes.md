@@ -8,3 +8,4 @@
  * Splicing model analysis: https://bio.tools/t?operationID=%22operation_2499%22 (46 tools 2019-03-27)
  * RNA splicing: https://bio.tools/t?topicID=%22topic_3320%22 (97 tools 2019-03-27)
  
+https://www.ncbi.nlm.nih.gov/pubmed/28949076
